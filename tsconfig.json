@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES6",              // 出力するJSのバージョン
+    "module": "ESNext",           // import/exportをそのまま使う
+    "outDir": "./build/typescript",           // 出力先ディレクトリ
+    "rootDir": "./src/typescript",           // ソースコードの場所
+    "strict": true,               // 厳密な型チェック
+    "esModuleInterop": true,      // CommonJS互換のimportを許可
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/typescript"]
+}
+

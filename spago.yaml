@@ -1,0 +1,21 @@
+package:
+  name: kusoapp2025
+  dependencies:
+    - console
+    - effect
+    - prelude
+  test:
+    main: Test.Main
+    dependencies: []
+  bundle:
+    minify: true
+    module: Main
+    outfile: "build/purescript/script_ps.js"
+    platform: browser
+    type: "module"
+workspace:
+  packageSet:
+    registry: 68.7.0
+  extraPackages: {}
+  buildOpts:
+    output: "build/purescript"
