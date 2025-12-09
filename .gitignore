@@ -1,3 +1,13 @@
+build/coffeescript/*
+!build/coffeescript/.gitkeep
+build/dart/*
+!build/dart/.gitkeep
+build/purescript/*/
+build/purescript/*
+!build/purescript/.gitkeep
+build/typescript/*
+!build/typescript/.gitkeep
+
 bower_components/
 node_modules/
 .pulp-cache/
