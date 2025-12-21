@@ -63,14 +63,19 @@ html {
           align-items: flex-start;
           transform-origin: 100% 0% 0;
         }
-        &:hover {
+
+        &.selected {
+          border: 4px solid red;
+        }
+
+        &.open {
           $open_deg: 85deg;
           &::before{
-            /* transform: rotateY($open_deg); */
+            transform: rotateY($open_deg);
             transform: scaleX(10%);
           }
           &::after{
-            /* transform: rotateY(-$open_deg); */
+            transform: rotateY(-$open_deg);
             transform: scaleX(10%);
           }
         }

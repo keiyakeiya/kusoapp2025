@@ -4,6 +4,7 @@ export hello_coffee = (arg='anonymous') ->
 export addElement = ->
   for i in [0..99]
     div = document.createElement 'div'
+    div.className = 'door'
     container = document.querySelector '#container'
     div.innerHTML = '<img src="../../assets/animal_yagi.png"></img>'
     container.insertAdjacentElement 'beforeend', div
