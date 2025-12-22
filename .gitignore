@@ -1,11 +1,15 @@
 build/coffeescript/*
+!build/coffeescript/script_cs.js
 !build/coffeescript/.gitkeep
 build/dart/*
+!build/dart/script_dart.js
 !build/dart/.gitkeep
 build/purescript/*/
 build/purescript/*
+!build/purescript/script_ps.js
 !build/purescript/.gitkeep
 build/typescript/*
+!build/typescript/script_ts.js
 !build/typescript/.gitkeep
 
 bower_components/
