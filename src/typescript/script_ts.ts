@@ -8,7 +8,7 @@ export class Door {
     this.is_car = a_is_car
     this.is_candidate = false;
     this.div = document.createElement('div');
-    this.div.innerHTML = `<img src="../../assets/${(this.is_car)?"car4_red":"animal_yagi"}.png"></img>`;
+    this.div.innerHTML = `<img src="../assets/${(this.is_car)?"car4_red":"animal_yagi"}.png"></img>`;
   }
 
   get_dom() {
@@ -20,7 +20,7 @@ export class Door {
     this.is_selected = false;
     this.is_candidate = false;
     this.div.classList.remove('open', 'selected');
-    this.div.innerHTML = `<img src="../../assets/${(this.is_car)?"car4_red":"animal_yagi"}.png"></img>`;
+    this.div.innerHTML = `<img src="../assets/${(this.is_car)?"car4_red":"animal_yagi"}.png"></img>`;
   }
 
   select = () => {
