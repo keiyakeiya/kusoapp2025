@@ -4,9 +4,8 @@ build/coffeescript/*
 build/dart/*
 !build/dart/script_dart.js
 !build/dart/.gitkeep
-build/purescript/*/
-build/purescript/*
-!build/purescript/Main/
+# build/purescript/*/
+# build/purescript/*
 !build/purescript/.gitkeep
 build/typescript/*
 !build/typescript/script_ts.js
