@@ -4,6 +4,7 @@ package:
     - console
     - effect
     - prelude
+    - random
   test:
     main: Test.Main
     dependencies: []

@@ -1,7 +1,3 @@
-// export function hello_ts(arg: string): void {
-//   console.log(`Hello from TypeScript! ${arg}!`);
-// }
-
 export class Door {
   is_selected;
   is_car;

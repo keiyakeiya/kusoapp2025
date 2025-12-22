@@ -3,8 +3,12 @@ module Main where
 import Prelude
 
 import Effect (Effect)
-import Effect.Console (log)
+import Effect.Random (randomInt)
 
-hello_ps :: String -> Effect Unit
-hello_ps arg = do
-  log ("Hello from PureScript! " <> arg <> "!")
+randomDoor :: Int -> Effect Int
+randomDoor a_doors_num =
+  randomInt 0 (a_doors_num - 1)
+
+notOpenIndex :: Int -> Effect Int
+notOpenIndex aDoorsNum =
+  randomInt 0 (aDoorsNum - 2)

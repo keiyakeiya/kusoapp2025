@@ -1,11 +1,11 @@
-export hello_coffee = (arg='anonymous') ->
-  console.log "Hello from CoffeeScript! #{arg}!"
+export draw_doors = (a_doors) ->
+  container = document.querySelector '#container'
+  for d in a_doors
+    container.insertAdjacentElement 'beforeend', d.get_dom()
 
-export addElement = ->
-  for i in [0..99]
-    div = document.createElement 'div'
-    div.className = 'door'
-    container = document.querySelector '#container'
-    div.innerHTML = '<img src="../../assets/animal_yagi.png"></img>'
-    container.insertAdjacentElement 'beforeend', div
-
+export update_message = (a_message, a_replace=false) ->
+  message_area = document.querySelector '#message'
+  if a_replace
+    message_area.innerHTML = a_message
+  else
+    message_area.innerHTML += a_message

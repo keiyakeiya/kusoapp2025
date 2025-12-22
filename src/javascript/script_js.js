@@ -1,75 +1,54 @@
 import * as cs_module from '../../build/coffeescript/script_cs.js';
 import { Door } from '../../build/typescript/script_ts.js';
-import { hello_ps } from '../../build/purescript/Main/index.js';
+import { randomDoor, notOpenIndex } from '../../build/purescript/Main/index.js';
 
-cs_module.hello_coffee('Call by js');
-hello_dart('Call by js');
-hello_ps('Call by js')();
 
 const g_doors_num = 100;
 
 // init
-// TODO
-let doors = [];
-for(let i=0; i<g_doors_num; i++) {
-  doors.push(new Door(i===0));
-}
-
-for(let d of doors) {
-  container = document.querySelector('#container');
-  container.insertAdjacentElement('beforeend', d.get_dom());
-}
-
+let doors = initialize(g_doors_num);
 
 while(true) {
   // Reset
-  // TODO
-  const is_car = Math.floor(Math.random()*g_doors_num);
-  for(let i=0; i<g_doors_num; i++) {
-    console.log(is_car);
-    doors[i].reset(i===is_car);
-  }
+  reset(doors, g_doors_num);
 
   // wait choosing
-  document.querySelector('#text').innerHTML = 'Choose Door';
-
   const first_selected = await waitFirstChoose(doors);
 
   // Open Doors
-  await openDoors(first_selected);
+  await openDoors(doors, first_selected, g_doors_num);
 
   // Check change
-  const decision = await wait_change_decision();
-  if(decision === 'yes_btn') {
-    for(const d of doors) {
-      if(d.is_candidate) {
-        d.toggle_select();
-      }
-    }
-  }
+  await wait_change_decision(doors);
 
   // Show result
-  // TODO
-  let is_correct = false;
-  for(const d of doors) {
-    if(d.is_selected && d.is_car) {
-      is_correct = true;
-    }
-  }
-  document.querySelector('#text').innerHTML = (is_correct)?'correct':'not correct';
-
-  for(const d of doors) {
-    if(d.is_candidate) {
-      d.open();
-    }
-  }
+  show_result();
 
   // Next?
   await wait_next_game();
-  console.log('game done');
+}
+
+function initialize(a_doors_num) {
+  html_setup();
+  let doors = [];
+  for(let i=0; i<a_doors_num; i++) {
+    doors.push(new Door(i===0));
+  }
+
+  cs_module.draw_doors(doors);
+
+  return doors;
+}
+
+function reset(a_doors, a_doors_num) {
+  const is_car = randomDoor(a_doors_num)();
+  for(let i=0; i<a_doors_num; i++) {
+    a_doors[i].reset(i===is_car);
+  }
 }
 
 function waitFirstChoose(a_doors) {
+  cs_module.update_message( 'ドアを選んでください。', true);
   return new Promise(resolve => {
     const handler = (e) => {
       cleanup();
@@ -90,26 +69,26 @@ function waitFirstChoose(a_doors) {
   });
 }
 
-function openDoors(first_selected) {
+function openDoors(a_doors, a_first_selected, a_doors_num) {
   return new Promise(resolve => {
-    if(first_selected.is_car) {
-      const not_open = Math.floor(Math.random()*(g_doors_num-1));
+    if(a_first_selected.is_car) {
+      const not_open = notOpenIndex(a_doors_num)();
       let cnt = 0;
-      for(let i=0; i<g_doors_num; i++) {
-        if(!doors[i].is_selected) {
+      for(let i=0; i<a_doors_num; i++) {
+        if(!a_doors[i].is_selected) {
           if(cnt !== not_open) {
-            doors[i].open();
+            a_doors[i].open();
           } else {
-            doors[i].is_candidate = true;
+            a_doors[i].is_candidate = true;
           }
           cnt++;
         } else {
-          doors[i].is_candidate = true;
+          a_doors[i].is_candidate = true;
         }
       }
     } else {
       // open without selected and car
-      for(const d of doors) {
+      for(const d of a_doors) {
         if(!d.is_car && !d.is_selected) {
           d.open();
         } else {
@@ -121,14 +100,21 @@ function openDoors(first_selected) {
   });
 }
 
-function wait_change_decision() {
-  document.querySelector('#text').innerHTML = 'Change?<button id="yes_btn">yes</button><button id="no_btn">no</button>';
-  const btns = document.querySelectorAll("#text button");
+function wait_change_decision(a_doors) {
+  cs_module.update_message( '別のドアに変更してもいいですよ。変更しますか？<br> <button id="yes_btn">はい</button> <button id="no_btn">いいえ</button>', true);
+  const btns = document.querySelectorAll("#message button");
   return new Promise(resolve => {
     const handler = (e) => {
       cleanup();
       const instance = Array.from(btns).find(inst => inst == e.currentTarget);
-      resolve(instance.id);
+      if(instance.id === 'yes_btn') {
+        for(const d of a_doors) {
+          if(d.is_candidate) {
+            d.toggle_select();
+          }
+        }
+      }
+      resolve();
     };
 
     const cleanup = () => {
@@ -143,10 +129,22 @@ function wait_change_decision() {
   });
 }
 
+function show_result() {
+  let is_correct = false;
+  for(const d of doors) {
+    if(d.is_selected && d.is_car) {
+      is_correct = true;
+    }
+    if(d.is_candidate) {
+      d.open();
+    }
+  }
+  cs_module.update_message((is_correct)?'おめでとうございます！<br>':'残念。。。<br>', true);
+}
+
 function wait_next_game() {
-  const next_game_btn = document.createElement('button');
-  next_game_btn.innerText = 'Go to Next Game';
-  document.querySelector('#text').insertAdjacentElement('beforeend', next_game_btn);
+  cs_module.update_message('<button>もう一回</button>', false);
+  const next_game_btn = document.querySelector('#message button');
 
   return new Promise(resolve => {
     const handler = (e) => {
