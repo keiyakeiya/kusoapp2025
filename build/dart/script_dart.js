@@ -3260,7 +3260,7 @@
       header_elem.setAttribute(_s2_, "header");
       t2 = t1.createElement("div");
       t2.toString;
-      B.DivElement_methods.set$text(t2, "\u3010\u305f\u304f\u3055\u3093\u3011\u30e2\u30f3\u30c6\u30a3\u30db\u30fc\u30eb\u554f\u984c");
+      B.DivElement_methods.set$text(t2, "\u3010\u305f\u304f\u3055\u3093\u3011\u30e2\u30f3\u30c6\u30a3\u30fb\u30db\u30fc\u30eb\u554f\u984c");
       t2.setAttribute(_s2_, "title");
       header_elem.appendChild(t2).toString;
       message_area_elem = t1.createElement("div");

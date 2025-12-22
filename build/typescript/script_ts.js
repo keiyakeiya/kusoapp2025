@@ -3,7 +3,6 @@ export class Door {
         this.select = () => {
             this.is_selected = true;
             this.div.classList.add('selected');
-            console.log(`I am ${this.is_car ? "car" : "yagi"}`);
         };
         this.toggle_select = () => {
             if (this.is_selected) {
