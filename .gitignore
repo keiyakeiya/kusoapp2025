@@ -6,7 +6,7 @@ build/dart/*
 !build/dart/.gitkeep
 build/purescript/*/
 build/purescript/*
-!build/purescript/script_ps.js
+!build/purescript/Main/index.js
 !build/purescript/.gitkeep
 build/typescript/*
 !build/typescript/script_ts.js
