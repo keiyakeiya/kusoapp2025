@@ -31,6 +31,8 @@ export class Door {
         this.is_selected = false;
         this.is_candidate = false;
         this.div.classList.remove('open', 'selected');
-        this.div.innerHTML = `<img src="assets/${(this.is_car) ? "car4_red" : "animal_yagi"}.png"></img>`;
+        setTimeout(() => {
+            this.div.innerHTML = `<img src="assets/${(this.is_car) ? "car4_red" : "animal_yagi"}.png"></img>`;
+        }, 250);
     }
 }
